@@ -1,0 +1,10 @@
+timm>=1.0.15,<1.1
+numpy>=1.26,<3
+pandas>=2.2,<3
+scipy>=1.13
+scikit-learn>=1.5
+Pillow>=10
+matplotlib>=3.9
+PyYAML>=6
+tqdm>=4.66
+pytest>=8

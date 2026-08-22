@@ -1,0 +1,41 @@
+experiments:
+  hash_length:
+    bits: [32, 64, 128, 256]
+    primary_metrics: [mAP, p@10, p@20, r@20, ndcg@10, ndcg@20]
+
+  component_ablation:
+    profiles:
+      - flat_no_routing
+      - shared_head
+      - no_embedding_supcon
+      - no_prototype_sign_margin
+      - no_semantic_hash
+      - no_quant_balance
+      - full
+    bits: 128
+
+  routing_policy:
+    configurations:
+      - top1_db_top1_query
+      - top1_db_top2_query
+      - adaptive_db_top2_query
+      - oracle_db_oracle_query
+
+  routing_error_sensitivity:
+    injected_error_rates: [0.0, 0.05, 0.10, 0.15, 0.20, 0.30]
+    metrics: [mAP, p@20, r@20]
+
+  deep_hashing_baselines:
+    methods: [dsh, hashnet, dch, flat_hash]
+    bits: 128
+
+  mura:
+    bits: [32, 64, 128, 256]
+    relevance: joint_id
+    classification_metrics: [accuracy, balanced_accuracy, macro_f1, micro_auroc, macro_auroc, micro_auprc, macro_auprc]
+    retrieval_metrics: [mAP, p@10, p@20, r@10, r@20, ndcg@10, ndcg@20]
+
+  scalability:
+    index_entries: [5000, 15000, 65000, 130000]
+    unit: milliseconds_per_query
+    methods: [float_cosine_scan, full_hamming_scan, anatomy_routed_hamming_scan]

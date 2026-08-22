@@ -1,0 +1,49 @@
+seed: 42
+image_size: 224
+normalization: imagenet
+
+stage1:
+  model: convnext_tiny.fb_in1k
+  epochs: 30
+  batch_size: 64
+  lr: 0.0003
+  weight_decay: 0.05
+  calibration: temperature_scaling
+
+stage2:
+  backbone: swin_tiny_patch4_window7_224.ms_in1k
+  epochs: 40
+  batch_size: 64
+  embedding_dim: 256
+  hash_bits: 128
+  classes_per_batch: 16
+  samples_per_class: 4
+  lr: 0.0002
+  weight_decay: 0.05
+  supcon_temperature: 0.07
+  hash_pair_temperature: 0.20
+  lambda_sup: 1.0
+  lambda_hash_sup: 0.25
+  lambda_hash_pair: 0.25
+  lambda_prototype: 3.0
+  lambda_sign_margin: 2.0
+  sign_margin: 0.35
+  prototype_min_hamming: 0.35
+  lambda_quant: 0.02
+  lambda_balance: 0.01
+  semantic_warmup_epochs: 2
+  quant_ramp_epochs: 5
+  min_unique_per_route: 2
+  checkpoint_metric: validation_gt_route_hash_mAP
+  require_binary_diversity: true
+
+retrieval:
+  db_splits: [train, val]
+  query_split: test
+  database_policy: adaptive
+  database_top_r: 2
+  confidence_threshold: 0.8
+  query_policy: topk
+  query_top_r: 2
+  candidate_fusion_alpha: 0.05
+  metrics: [mAP, P@10, P@20, P@50, P@100, P@200, R@10, R@20, R@50, R@100, R@200, nDCG@10, nDCG@20, nDCG@50, nDCG@100, nDCG@200]

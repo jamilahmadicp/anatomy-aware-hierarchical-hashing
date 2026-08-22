@@ -1,0 +1,22 @@
+.venv/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Experiment artifacts
+outputs/
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.npy
+
+# Local datasets/manifests containing absolute paths
+local_data/
+*.local.csv

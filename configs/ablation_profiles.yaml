@@ -1,0 +1,32 @@
+# Named Stage-2 ablations. These names map directly to --ablation-profile.
+full:
+  description: Complete anatomy-specific Stage-2 objective and routing design.
+
+shared_head:
+  description: Replace anatomy-specific projection/classification/hash heads with one shared head.
+
+no_embedding_supcon:
+  description: Remove supervised contrastive learning from the projected embedding.
+  overrides:
+    lambda_sup: 0.0
+
+no_prototype_sign_margin:
+  description: Remove direct class-prototype regression and sign-margin supervision while retaining other semantic hash losses.
+  overrides:
+    lambda_prototype: 0.0
+    lambda_sign_margin: 0.0
+
+no_semantic_hash:
+  description: Remove all direct semantic supervision from the hash space; checkpoint is retained even if binary diversity collapses so the failure mode can be quantified.
+  overrides:
+    lambda_hash_sup: 0.0
+    lambda_hash_pair: 0.0
+    lambda_prototype: 0.0
+    lambda_sign_margin: 0.0
+    allow_collapsed_checkpoint: true
+
+no_quant_balance:
+  description: Remove quantization and route-wise bit-balance regularization.
+  overrides:
+    lambda_quant: 0.0
+    lambda_balance: 0.0

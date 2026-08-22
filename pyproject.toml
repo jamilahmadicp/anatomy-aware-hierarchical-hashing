@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=70", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anatomy-aware-hierarchical-hashing"
+version = "1.0.0"
+description = "Reproducible PyTorch implementation of anatomy-aware hierarchical contrastive hashing for radiograph retrieval"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "Jamil Ahmad"}
+]
+dependencies = [
+  "numpy>=1.26,<3",
+  "pandas>=2.2,<3",
+  "scipy>=1.13",
+  "scikit-learn>=1.5",
+  "Pillow>=10",
+  "matplotlib>=3.9",
+  "PyYAML>=6",
+  "tqdm>=4.66",
+  "timm>=1.0.15,<1.1",
+  "torch>=2.4",
+  "torchvision>=0.19"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+include = ["anatomy_hash*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
